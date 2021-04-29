@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { LoginRequestPayload } from './login-request';
 
@@ -11,9 +13,12 @@ import { LoginRequestPayload } from './login-request';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginRequestPayload: LoginRequestPayload;
+  errorOccurred: boolean;
+  usernameEmpty: boolean;
+  passwordEmpty: boolean;
 
-  constructor(private authService: AuthService) {
-    this.loginRequestPayload= {
+  constructor(private authService: AuthService, private router: Router) {
+    this.loginRequestPayload = {
       username: '',
       password: '',
     };
@@ -30,8 +35,23 @@ export class LoginComponent implements OnInit {
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
 
-    this.authService.login(this.loginRequestPayload).subscribe((data) => {
-      console.log(data);
-    });
+    this.usernameEmpty = !this.loginForm.get('username').valid;
+    this.passwordEmpty = !this.loginForm.get('password').valid;
+
+    if (this.usernameEmpty || this.passwordEmpty) {
+      return;
+    }
+
+    this.authService.login(this.loginRequestPayload).subscribe(
+      (data) => {
+        this.router.navigateByUrl('');
+        this.errorOccurred = false;
+        console.log(data);
+      },
+      (error) => {
+        this.errorOccurred = true;
+        throwError(error);
+      }
+    );
   }
 }
