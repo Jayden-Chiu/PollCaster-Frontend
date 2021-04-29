@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SignupRequestPayload } from '../signup/signup-request.payload';
@@ -13,6 +13,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class AuthService {
   url: string;
+
+  @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private http: HttpClient,
@@ -34,7 +36,12 @@ export class AuthService {
         this.localStorage.store('accessToken', data.accessToken);
         this.localStorage.store('tokenType', data.tokenType);
 
+        this.loggedIn.emit(true);
         return true;
       }));
+  }
+
+  authenticated(): Observable<boolean> {
+    return this.http.get<boolean>(this.url + '/authenticated');
   }
 }
