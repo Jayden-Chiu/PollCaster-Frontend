@@ -29,19 +29,25 @@ export class AuthService {
     });
   }
 
-  login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
+  login(loginRequestPayload: LoginRequestPayload): Observable<any> {
     return this.http
       .post<LoginResponsePayload>(this.url + '/login', loginRequestPayload)
-      .pipe(map((data) => {
-        this.localStorage.store('accessToken', data.accessToken);
-        this.localStorage.store('tokenType', data.tokenType);
+      .pipe(
+        map((data) => {
+          this.localStorage.store('accessToken', data.accessToken);
+          this.localStorage.store('tokenType', data.tokenType);
 
-        this.loggedIn.emit(true);
-        return true;
-      }));
+          this.loggedIn.emit(true);
+          return data;
+        })
+      );
   }
 
-  authenticated(): Observable<boolean> {
-    return this.http.get<boolean>(this.url + '/authenticated');
+  authenticated(): boolean {
+    return this.getToken() != null;
+  }
+
+  getToken(): string | null {
+    return this.localStorage.retrieve('accessToken');
   }
 }
