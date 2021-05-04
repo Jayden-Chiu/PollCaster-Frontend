@@ -23,15 +23,24 @@ export class SignupComponent implements OnInit {
     this.signupForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
     });
   }
 
   signup() {
+    
+    const password = this.signupForm.get('password').value;
+    const confirmPassword = this.signupForm.get('confirmPassword').value;
+    
     this.signupRequestPayload.username = this.signupForm.get('username').value;
     this.signupRequestPayload.password = this.signupForm.get('password').value;
 
     this.authService.signup(this.signupRequestPayload).subscribe((data) => {
       console.log(data);
     });
+  }
+
+  checkPassword() {
+
   }
 }
