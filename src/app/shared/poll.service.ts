@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ApiResponseModel } from './api-response.model';
 import { PageResponseModel } from './page-response.model';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +22,21 @@ export class PollService {
         fromString: '_page=0&_size=20',
       }),
     });
+  }
+
+  votePoll(pollId: number): Observable<any> {
+    return this.http
+      .post(this.url + `/${pollId}/vote`, null, {
+        responseType: 'json',
+      })
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
+  }
+
+  deletePoll(pollId: number): Observable<ApiResponseModel> {
+    return this.http.delete<ApiResponseModel>(this.url + `/${pollId}`);
   }
 }
