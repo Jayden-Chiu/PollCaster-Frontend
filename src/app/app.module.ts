@@ -5,28 +5,42 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignupComponent } from './auth/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './home/home.component';
 import { PollTileComponent } from './shared/poll-tile/poll-tile.component';
+import { ChoiceTileComponent } from './shared/choice-tile/choice-tile.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './auth/login/login.component';
+import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     SignupComponent,
     HomeComponent,
-    PollTileComponent
+    PollTileComponent,
+    ChoiceTileComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
