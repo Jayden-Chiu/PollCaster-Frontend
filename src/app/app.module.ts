@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { ChoiceTileComponent } from './shared/choice-tile/choice-tile.component'
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TokenInterceptor } from './token-interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { TokenInterceptor } from './token-interceptor';
     NgbModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
+    ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     {
