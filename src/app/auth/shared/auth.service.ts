@@ -15,6 +15,7 @@ export class AuthService {
   url: string;
 
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
+  @Output() userId: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private http: HttpClient,
@@ -33,11 +34,13 @@ export class AuthService {
     return this.http
       .post<LoginResponsePayload>(this.url + '/login', loginRequestPayload)
       .pipe(
-        map((data) => {
+        map((data: LoginResponsePayload) => {
           this.localStorage.store('accessToken', data.accessToken);
           this.localStorage.store('tokenType', data.tokenType);
+          this.localStorage.store('userId', data.userId);
 
           this.loggedIn.emit(true);
+          this.userId.emit(data.userId);
           return data;
         })
       );
@@ -49,5 +52,9 @@ export class AuthService {
 
   getToken(): string | null {
     return this.localStorage.retrieve('accessToken');
+  }
+
+  getId(): number | null {
+    return this.localStorage.retrieve('userId');
   }
 }
