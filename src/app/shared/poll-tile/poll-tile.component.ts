@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { throwError } from 'rxjs';
 import { AuthService } from 'src/app/auth/shared/auth.service';
 import { PollModel } from '../poll.model';
 
@@ -9,13 +11,35 @@ import { PollModel } from '../poll.model';
 })
 export class PollTileComponent implements OnInit {
   selected: number;
+  userId: number;
+  isLoggedIn: boolean;
   @Input() polls: Array<PollModel>;
 
-  constructor(private authService: AuthService) {}
+  modalRef: BsModalRef;
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private modalService: BsModalService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.loggedIn.subscribe(
+      (data: boolean) => (this.isLoggedIn = data)
+    );
+    this.isLoggedIn = this.authService.authenticated();
+
+    this.authService.userId.subscribe(
+      (data: number) => (this.userId = data)
+    );
+    
+    this.userId = this.authService.getId();
+  }
 
   submit() {
     console.log(this.selected);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 }

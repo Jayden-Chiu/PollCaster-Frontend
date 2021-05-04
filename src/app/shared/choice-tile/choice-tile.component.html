@@ -1,7 +1,8 @@
 <ul class="list-group">
   <li *ngIf="choices.length === 0" class="text-uppercase font-weight-bold list-group-item bg-danger text-white">Error loading in choices</li>
-  <li href="#" class="list-group-item list-group-item-action" [class.active]="active === i"
+  <li href="#" class="list-group-item" [class.active]="active === i" [class.list-group-item-action] = "!alreadySubmitted"
     (click)="onClick(i)" *ngFor="let choice of choices; let i = index;">
     {{ choice.text }}
   </li>
+  <span *ngIf="alreadySubmitted"></span>
 </ul>

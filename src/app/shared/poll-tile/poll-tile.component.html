@@ -4,17 +4,33 @@
       <div class="card-header">{{ poll.title }}</div>
 
       <div class="m-4">
-        <app-choice-tile [choices]="poll.choices" (selected)="selected = $event"></app-choice-tile>
-        <div class="mt-4" *ngIf="authService.authenticated() && poll.choices.length > 0">
+        <app-choice-tile [choices]="poll.choices" [alreadySubmitted]="isLoggedIn ? poll.selectedChoice : null" (selected)="selected = $event"></app-choice-tile>
+        <div class="mt-4" *ngIf="isLoggedIn && poll.choices.length > 0">
           <button type="button" (click)="submit()" class="btn btn-primary" [class.disabled]="poll.selectedChoice"
-            *ngIf="!poll.selectedChoice; else alreadySelected">
+            *ngIf="!poll.selectedChoice; else submitted">
             Submit
           </button>
-          <ng-template #alreadySelected>
-            Already selected
+          <ng-template #submitted>
+            Already submitted
           </ng-template>
+          <button type="button" class="btn btn-danger float-right" *ngIf="poll.createdBy.id === userId"
+            (click)="openModal(deleteModal)">
+            <i class="far fa-trash-alt"></i>
+          </button>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+<ng-template #deleteModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
