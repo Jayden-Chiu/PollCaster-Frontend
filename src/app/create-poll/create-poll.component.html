@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="justify-content-center">
+    <h4 style="text-align: center;">Create a Poll</h4>
+  </div>
+  <br>
+  <form [formGroup]="createPollForm" (ngSubmit)="create()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="title" class="form-control" id="title" placeholder="Enter the title of the poll"
+        [formControlName]="'title'">
+      <small class="form-text text-danger"
+        *ngIf="!createPollForm.get('title').valid && createPollForm.get('title').touched">
+        Provide a valid title
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputPassword1">Choices</label>
+      <div class="mb-4">
+        <button type="button" (click)="addChoice()" class="btn btn-secondary">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button type="button" (click)="removeChoice()" class="btn btn-secondary">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+      <div class="my-4" *ngFor="let control of choices.controls; index as i">
+        <input class="form-control" placeholder="Choice {{i + 1 > 2 ? i + 1 + ' (Optional)' : i + 1}}"
+          [formControl]="choices.controls[i]">
+        <small class="form-text text-danger" 
+        [hidden]="choices.controls[i].value.length <= 50">
+          Choices must be 1-50 characters
+        </small>
+        <small class="form-text text-danger" 
+        [hidden]="!(choices.controls[i].touched && choices.controls[i].value.length <= 0)">
+          Choices cannot be empty
+        </small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Poll</button>
+  </form>
+</div>
