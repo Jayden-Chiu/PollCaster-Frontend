@@ -17,6 +17,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { TokenInterceptor } from './token-interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ProfileComponent } from './auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     PollTileComponent,
     ChoiceTileComponent,
     HeaderComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     NgxWebstorageModule.forRoot(),
     ModalModule.forRoot(),
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     {
