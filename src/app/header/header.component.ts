@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth/shared/auth.service';
 
 @Component({
@@ -8,14 +9,24 @@ import { AuthService } from '../auth/shared/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean;
+  userId: number;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.authService.loggedIn.subscribe(
       (data: boolean) => (this.isLoggedIn = data)
     );
     this.isLoggedIn = this.authService.authenticated();
+
+    this.authService.userId.subscribe(
+      (data: number) => (this.userId = data)
+    );
+    this.userId = this.authService.getId();
       
+  }
+
+  goToUserProfile() {
+    this.router.navigateByUrl('/profile/' + this.userId);
   }
 }
