@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ApiResponseModel } from './api-response.model';
 import { PageResponseModel } from './page-response.model';
 import { catchError, map, tap } from 'rxjs/operators';
+import { PollRequestPayload } from './poll-request';
 
 @Injectable({
   providedIn: 'root',
@@ -33,18 +34,18 @@ export class PollService {
   }
 
   votePoll(pollId: number): Observable<any> {
-    return this.http
-      .post(this.url + `/${pollId}/vote`, null, {
-        responseType: 'json',
-      })
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
+    return this.http.post(this.url + `/${pollId}/vote`, null, {
+      responseType: 'json',
+    });
   }
 
   deletePoll(pollId: number): Observable<ApiResponseModel> {
     return this.http.delete<ApiResponseModel>(this.url + `/${pollId}`);
+  }
+
+  createPoll(
+    pollRequestPayload: PollRequestPayload
+  ): Observable<ApiResponseModel> {
+    return this.http.post<ApiResponseModel>(this.url, pollRequestPayload);
   }
 }
