@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">Navbar</a>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/create">Create</a>
+      </li>
+    </ul>
     <div class="btn-group" dropdown *ngIf="isLoggedIn; else logIn">
       <a id="button-basic" dropdownToggle type="button" class="text-white user-icon dropdown-toggle"
         aria-controls="dropdown-basic">
