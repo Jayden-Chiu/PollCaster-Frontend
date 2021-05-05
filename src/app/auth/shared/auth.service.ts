@@ -57,4 +57,9 @@ export class AuthService {
   getId(): number | null {
     return this.localStorage.retrieve('userId');
   }
+
+  logout(): void {
+    this.localStorage.clear();
+    this.loggedIn.emit(false);
+  }
 }

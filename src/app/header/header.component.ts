@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 import { AuthService } from '../auth/shared/auth.service';
 
 @Component({
@@ -19,14 +20,17 @@ export class HeaderComponent implements OnInit {
     );
     this.isLoggedIn = this.authService.authenticated();
 
-    this.authService.userId.subscribe(
-      (data: number) => (this.userId = data)
-    );
+    this.authService.userId.subscribe((data: number) => (this.userId = data));
     this.userId = this.authService.getId();
-      
   }
 
   goToUserProfile() {
     this.router.navigateByUrl('/profile/' + this.userId);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['']);
+    this.ngOnInit();
   }
 }

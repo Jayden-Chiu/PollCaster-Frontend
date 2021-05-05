@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" routerLink="/">Navbar</a>
     <div class="btn-group" dropdown *ngIf="isLoggedIn; else logIn">
       <a id="button-basic" dropdownToggle type="button" class="text-white user-icon dropdown-toggle"
         aria-controls="dropdown-basic">
         <i class="fas fa-user"></i> <span class="caret"></span>
       </a>
       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item" href="#">Profile</a></li>
+        <li role="menuitem"><button class="dropdown-item" (click)="goToUserProfile()">Profile</button></li>
         <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Logout</a>
+        <li role="menuitem"><button class="dropdown-item" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>
