@@ -24,6 +24,14 @@ export class PollService {
     });
   }
 
+  getPollsByUser(userId: number): Observable<PageResponseModel> {
+    return this.http.get<PageResponseModel>(this.url + `/user/${userId}`, {
+      params: new HttpParams({
+        fromString: '_page=0&_size=20',
+      }),
+    });
+  }
+
   votePoll(pollId: number): Observable<any> {
     return this.http
       .post(this.url + `/${pollId}/vote`, null, {
