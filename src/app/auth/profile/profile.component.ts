@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.userId = this.activatedRoute.snapshot.params.userId;
     this.page = 0;
-    this.pageSize = 20;
+    this.pageSize = 10;
   }
 
   ngOnInit(): void {

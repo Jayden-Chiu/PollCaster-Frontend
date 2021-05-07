@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private pollService: PollService) {
     this.page = 0;
-    this.pageSize = 20;
+    this.pageSize = 10;
   }
 
   ngOnInit(): void {
