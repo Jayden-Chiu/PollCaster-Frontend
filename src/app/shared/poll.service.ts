@@ -17,20 +17,20 @@ export class PollService {
     this.url = environment.baseUrl + '/api/polls';
   }
 
-  getPolls(): Observable<PageResponseModel> {
-    return this.http.get<PageResponseModel>(this.url, {
-      params: new HttpParams({
-        fromString: '_page=0&_size=20',
-      }),
-    });
+  getPolls(page: number, size: number): Observable<PageResponseModel> {
+    return this.http.get<PageResponseModel>(
+      this.url + `?page=${page}&size=${size}`
+    );
   }
 
-  getPollsByUser(userId: number): Observable<PageResponseModel> {
-    return this.http.get<PageResponseModel>(this.url + `/user/${userId}`, {
-      params: new HttpParams({
-        fromString: '_page=0&_size=20',
-      }),
-    });
+  getPollsByUser(
+    userId: number,
+    page: number,
+    size: number
+  ): Observable<PageResponseModel> {
+    return this.http.get<PageResponseModel>(
+      this.url + `/user/${userId}?page=${page}&size=${size}`
+    );
   }
 
   votePoll(pollId: number): Observable<any> {

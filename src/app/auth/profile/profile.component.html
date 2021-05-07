@@ -4,4 +4,7 @@
   </div>
 
   <app-poll-tile [polls]="userPolls"></app-poll-tile>
+  <div class="justify-content-center row">
+    <pagination [totalItems]="totalElements" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
 </div>

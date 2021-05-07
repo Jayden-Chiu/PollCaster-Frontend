@@ -1,3 +1,10 @@
 <div class="container">
+  <div class="m-4 justify-content-center row">
+    <h3>Browse Polls</h3>
+  </div>
   <app-poll-tile [polls]="polls"></app-poll-tile>
+  <div class="justify-content-center row">
+    <pagination [totalItems]="totalElements" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+
 </div>

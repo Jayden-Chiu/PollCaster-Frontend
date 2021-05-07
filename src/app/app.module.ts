@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { CreatePollComponent } from './create-poll/create-poll.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CreatePollComponent } from './create-poll/create-poll.component';
     ModalModule.forRoot(),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     {

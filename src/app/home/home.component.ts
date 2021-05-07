@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { PollModel } from '../shared/poll.model';
 import { PollService } from '../shared/poll.service';
 
@@ -9,13 +10,25 @@ import { PollService } from '../shared/poll.service';
 })
 export class HomeComponent implements OnInit {
   polls: Array<PollModel> = [];
+  page: number;
+  pageSize: number;
+  totalElements: number;
 
   constructor(private pollService: PollService) {
-    this.pollService.getPolls().subscribe((poll) => {
-      console.log(poll);
+    this.page = 0;
+    this.pageSize = 20;
+  }
+
+  ngOnInit(): void {
+    this.pollService.getPolls(this.page, this.pageSize).subscribe((poll) => {
       this.polls = poll.content;
+      this.totalElements = poll.totalElements;
+      
     });
   }
 
-  ngOnInit(): void {}
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page - 1;
+    this.ngOnInit();
+  }
 }
