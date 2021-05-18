@@ -1,27 +1,66 @@
-# PollcasterApp
+# PollCaster-Frontend
+This is the frontend of PollCaster where users can signup, create, and vote on polls from other users. Note that this is only the frontend and in order to have poll and user functionality, PollCaster-Backend should also be running. This app runs locally on http://localhost:4200
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Site
 
-## Code scaffolding
+### Home
+![Screenshot 1](https://i.imgur.com/zWsp2Pl.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Profile
+![Screenshot 2](https://i.imgur.com/HNd8fog.png)
 
-## Build
+### Create
+![Screenshot 2](https://i.imgur.com/lZltN5m.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Login
+![Screenshot 2](https://i.imgur.com/MemN29S.png)
 
-## Running unit tests
+### Signup
+![Screenshot 2](https://i.imgur.com/0xWKVoK.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Development
+
+If you want to develop and run this app on your local machine, you need to do the following after cloning the repo:
+
+
+
+### Install Dependencies
+
+The following are required dependencies as defined in the package.json file
+
+```
+    "@angular/animations": "~11.2.11",
+    "@angular/common": "~11.2.11",
+    "@angular/compiler": "~11.2.11",
+    "@angular/core": "~11.2.11",
+    "@angular/forms": "~11.2.11",
+    "@angular/localize": "~11.2.11",
+    "@angular/platform-browser": "~11.2.11",
+    "@angular/platform-browser-dynamic": "~11.2.11",
+    "@angular/router": "~11.2.11",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "bootstrap": "^4.5.0",
+    "ngx-bootstrap": "^6.2.0",
+    "ngx-webstorage": "^7.0.1",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.11.3"
+```
+
+### Run
+In order to start running this on your local machine, run the following:
+```
+npm run start
+```
+
+This should run the app on http://localhost:4200/
+
+## Todo
+- Add settings page to modify user info
