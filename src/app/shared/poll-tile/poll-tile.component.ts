@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, Output, OnInit, TemplateRef, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { throwError } from 'rxjs';
@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/shared/auth.service';
 import { ApiResponseModel } from '../api-response.model';
 import { PollModel } from '../poll.model';
 import { PollService } from '../poll.service';
+import { VoteRequestPayload } from '../vote-request';
 
 @Component({
   selector: 'app-poll-tile',
@@ -18,6 +19,7 @@ export class PollTileComponent implements OnInit {
   userId: number;
   isLoggedIn: boolean;
   @Input() polls: Array<PollModel>;
+  @Output() submitted: EventEmitter<boolean> = new EventEmitter();
 
   modalRef: BsModalRef;
 
@@ -39,8 +41,18 @@ export class PollTileComponent implements OnInit {
     this.userId = this.authService.getId();
   }
 
-  submit() {
-    console.log(this.selected);
+  submit(pollId: number) {
+    let voteRequestPayload: VoteRequestPayload = {
+      choice: this.selected,
+    };
+    this.pollId = pollId;
+    console.log(this.pollId);
+    this.pollService
+      .votePoll(this.pollId, voteRequestPayload)
+      .subscribe((data) => {
+        console.log(data);
+        this.submitted.emit(true);
+      });
   }
 
   delete() {

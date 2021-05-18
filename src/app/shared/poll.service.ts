@@ -6,6 +6,7 @@ import { ApiResponseModel } from './api-response.model';
 import { PageResponseModel } from './page-response.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { PollRequestPayload } from './poll-request';
+import { VoteRequestPayload } from './vote-request';
 
 @Injectable({
   providedIn: 'root',
@@ -33,8 +34,8 @@ export class PollService {
     );
   }
 
-  votePoll(pollId: number): Observable<any> {
-    return this.http.post(this.url + `/${pollId}/vote`, null, {
+  votePoll(pollId: number, voteRequestPayload: VoteRequestPayload): Observable<any> {
+    return this.http.post(this.url + `/${pollId}/vote`, voteRequestPayload, {
       responseType: 'json',
     });
   }

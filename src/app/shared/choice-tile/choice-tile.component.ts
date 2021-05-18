@@ -11,6 +11,7 @@ import { ChoiceModel } from '../choice.model';
 export class ChoiceTileComponent implements OnInit {
   @Input() choices: Array<ChoiceModel>;
   @Input() alreadySubmitted: boolean;
+  @Input() totalVotes: number;
   @Output() selected: EventEmitter<number> = new EventEmitter();
   active: number;
   isLoggedIn: boolean;

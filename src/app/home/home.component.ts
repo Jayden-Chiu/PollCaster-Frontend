@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.pollService.getPolls(this.page, this.pageSize).subscribe((poll) => {
       this.polls = poll.content;
+      console.log(poll.content);
       this.totalElements = poll.totalElements;
       
     });

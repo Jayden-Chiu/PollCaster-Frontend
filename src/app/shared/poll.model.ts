@@ -6,4 +6,5 @@ export class PollModel {
   title: string;
   choices: Array<ChoiceModel>;
   createdBy: UserModel;
+  totalVotes: number;
 }
