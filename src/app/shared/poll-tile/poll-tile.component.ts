@@ -1,4 +1,11 @@
-import { Component, Input, Output, OnInit, TemplateRef, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  TemplateRef,
+  EventEmitter,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { throwError } from 'rxjs';
@@ -53,6 +60,10 @@ export class PollTileComponent implements OnInit {
         console.log(data);
         this.submitted.emit(true);
       });
+  }
+
+  goToCreatedBy(userId: number) {
+    this.router.navigateByUrl('/profile/' + userId);
   }
 
   delete() {

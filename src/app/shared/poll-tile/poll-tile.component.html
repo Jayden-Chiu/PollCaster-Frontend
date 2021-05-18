@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="card w-75 my-4" *ngFor="let poll of polls">
-      <div class="card-header">{{ poll.title }}</div>
+      <div class="card-header"><strong>{{ poll.title }}</strong>
+        <div class=mt-4>
+          <a class="text-decoration-none" [routerLink]="['/profile',poll.createdBy.id]">{{poll.createdBy.username}}</a>
+        </div>
+      </div>
 
       <div class="m-4">
         <app-choice-tile [choices]="poll.choices" [alreadySubmitted]="isLoggedIn ? poll.selectedChoice : null"
-        [totalVotes]="totalVotes"
-          (selected)="selected = $event"></app-choice-tile>
+          [totalVotes]="poll.totalVotes" (selected)="selected = $event"></app-choice-tile>
         <div class="mt-4" *ngIf="isLoggedIn && poll.choices.length > 0">
           <button type="button" (click)="submit(poll.id)" class="btn btn-primary" [class.disabled]="poll.selectedChoice"
-            *ngIf="!poll.selectedChoice; else submitted">
+            *ngIf="!poll.selectedChoice">
             Submit
           </button>
-          <ng-template #submitted>
-            Already submitted
-          </ng-template>
           <button type="button" class="btn btn-danger float-right" *ngIf="poll.createdBy.id === userId"
             (click)="openModal(deleteModal, poll.id)">
             <i class="far fa-trash-alt"></i>

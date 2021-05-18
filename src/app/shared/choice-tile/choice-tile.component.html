@@ -1,8 +1,12 @@
 <ul class="list-group">
-  <li *ngIf="choices.length === 0" class="text-uppercase font-weight-bold list-group-item bg-danger text-white">Error loading in choices</li>
-  <li href="#" class="list-group-item" [class.active]="active === i" [class.list-group-item-action] = "!alreadySubmitted"
+  <li *ngIf="choices.length === 0" class="text-uppercase font-weight-bold list-group-item bg-danger text-white">Error
+    loading in choices</li>
+  <li href="#" class="list-group-item" [class.active]="active === i" [class.list-group-item-action]="!alreadySubmitted"
     (click)="onClick(i)" *ngFor="let choice of choices; let i = index;">
     {{ choice.text }}
+    <div class="progress" *ngIf="alreadySubmitted">
+      <div class="progress-bar" role="progressbar" [style.width.%]="choice.voteCount / totalVotes * 100"
+        aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
   </li>
-  <span *ngIf="alreadySubmitted"></span>
 </ul>

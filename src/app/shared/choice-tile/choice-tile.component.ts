@@ -23,6 +23,7 @@ export class ChoiceTileComponent implements OnInit {
       (data: boolean) => (this.isLoggedIn = data)
     );
     this.isLoggedIn = this.authService.authenticated();
+    console.log(this.totalVotes)
   }
 
   onClick(index: number) {
